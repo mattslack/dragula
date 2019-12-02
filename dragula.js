@@ -42,6 +42,7 @@ function dragula (initialContainers, options) {
 
   var drake = emitter({
     containers: o.containers,
+    direction: o.direction,
     start: manualStart,
     end: end,
     cancel: cancel,
