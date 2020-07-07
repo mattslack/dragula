@@ -457,7 +457,6 @@ function dragula (initialContainers, options) {
   }
 
   function getReference (dropTarget, target, x, y) {
-    var horizontal = o.direction === 'horizontal';
     var reference = target !== dropTarget ? inside() : outside();
     return reference;
 
@@ -469,15 +468,15 @@ function dragula (initialContainers, options) {
       for (i = 0; i < len; i++) {
         el = dropTarget.children[i];
         rect = el.getBoundingClientRect();
-        if (horizontal && (rect.left + rect.width / 2) > x) { return el; }
-        if (!horizontal && (rect.top + rect.height / 2) > y) { return el; }
+        if (el.classList.contains('matrix-row__item') && (rect.left + rect.width / 2) > x) { return el; }
+        if (el.classList.contains('matrix-row') && (rect.top + rect.height / 2) > y) { return el; }
       }
       return null;
     }
 
     function inside () { // faster, but only available if dropped inside a child element
       var rect = target.getBoundingClientRect();
-      if (horizontal) {
+      if (target.classList.contains('matrix-row__item')) {
         return resolve(x > rect.left + getRectWidth(rect) / 2);
       }
       return resolve(y > rect.top + getRectHeight(rect) / 2);
